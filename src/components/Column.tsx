@@ -1,16 +1,13 @@
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { useDroppable } from '@dnd-kit/core'
 import { TaskCard } from './TaskCard'
 import type { Task, ColumnId } from '../types'
 
 export interface ColumnDef { id: ColumnId; title: string }
 
 export function Column({ id, title, tasks }: { id: ColumnId; title: string; tasks: Task[] }) {
-  const { setNodeRef } = useDroppable({ id })
-
+  // TODO: 第 4 天你要把这一列变成 droppable（useDroppable）
+  // 现在先静态渲染卡片列表
   return (
     <div
-      ref={setNodeRef}
       style={{
         width: 280,
         minHeight: 300,
@@ -25,11 +22,9 @@ export function Column({ id, title, tasks }: { id: ColumnId; title: string; task
       <h3 style={{ fontSize: 14, fontWeight: 600, color: '#475569' }}>
         {title} ({tasks.length})
       </h3>
-      <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
-        {tasks.map((t) => (
-          <TaskCard key={t.id} task={t} columnId={id} />
-        ))}
-      </SortableContext>
+      {tasks.map((t) => (
+        <TaskCard key={t.id} task={t} columnId={id} />
+      ))}
     </div>
   )
 }

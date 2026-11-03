@@ -1,24 +1,18 @@
-import { useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import type { Task, ColumnId } from '../types'
 
 export function TaskCard({ task, columnId }: { task: Task; columnId: ColumnId }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: task.id })
-
-  const style: React.CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    background: '#fff',
-    borderRadius: 6,
-    padding: 12,
-    cursor: 'grab',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-  }
-
+  // TODO: 第 3 天你要加「编辑」「删除」按钮（注意按钮 onMousedown 阻止拖拽）
+  // TODO: 第 4 天你要让这张卡片变成 sortable（useSortable）
+  // 现在先静态渲染
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      style={{
+        background: '#fff',
+        borderRadius: 6,
+        padding: 12,
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+      }}
+    >
       <div style={{ fontWeight: 500, fontSize: 14 }}>{task.title}</div>
       {task.description && (
         <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{task.description}</div>

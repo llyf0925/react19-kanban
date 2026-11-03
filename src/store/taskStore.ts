@@ -1,6 +1,9 @@
 import { create } from 'zustand'
 import type { Task, ColumnId } from '../types'
 
+// TODO: 这是你要练的核心。下面只给了骨架（空 tasks + 空的 action 占位），
+// 第 1 天你要:让 tasks 从 localStorage 初始化 + 每个 action 写回 localStorage
+// 第 4 天你要:实现 deleteTask 和列内排序
 interface TaskState {
   tasks: Record<ColumnId, Task[]>
   addTask: (col: ColumnId, task: Omit<Task, 'id' | 'createdAt'>) => void
@@ -12,37 +15,16 @@ interface TaskState {
 export const useTaskStore = create<TaskState>((set) => ({
   tasks: { todo: [], doing: [], done: [] },
 
-  addTask: (col, task) =>
-    set((s) => ({
-      tasks: {
-        ...s.tasks,
-        [col]: [...s.tasks[col], { ...task, id: crypto.randomUUID(), createdAt: Date.now() }],
-      },
-    })),
-
-  moveTask: (taskId, from, to) =>
-    set((s) => {
-      const t = s.tasks[from].find((x) => x.id === taskId)
-      if (!t) return s
-      return {
-        tasks: {
-          ...s.tasks,
-          [from]: s.tasks[from].filter((x) => x.id !== taskId),
-          [to]: [t, ...s.tasks[to]],
-        },
-      }
-    }),
-
-  deleteTask: (col, taskId) =>
-    set((s) => ({
-      tasks: { ...s.tasks, [col]: s.tasks[col].filter((x) => x.id !== taskId) },
-    })),
-
-  updateTask: (col, taskId, patch) =>
-    set((s) => ({
-      tasks: {
-        ...s.tasks,
-        [col]: s.tasks[col].map((x) => (x.id === taskId ? { ...x, ...patch } : x)),
-      },
-    })),
+  addTask: (_col, _task) => {
+    // TODO: 在 _col 里推入 _task（补上 id 和 createdAt）
+  },
+  moveTask: (_taskId, _from, _to) => {
+    // TODO: 把 _taskId 从 _from 移到 _to
+  },
+  deleteTask: (_col, _taskId) => {
+    // TODO: 从 _col 删掉 _taskId
+  },
+  updateTask: (_col, _taskId, _patch) => {
+    // TODO: 用 _patch 覆盖 _taskId 的字段
+  },
 }))
